@@ -45,7 +45,7 @@ function getSelectionRects() {
  */
 function handleDocumentMousedown(e) {
   let svg;
-  if (_type !== 'area' || !(svg = findSVGAtPoint(e.clientX, e.clientY))) {
+  if ((_type !== 'area' && _type !== 'highlight') || !(svg = findSVGAtPoint(e.clientX, e.clientY))) {
     return;
   }
 
@@ -100,7 +100,7 @@ function handleDocumentMouseup(e) {
       };
     }));
   }
-  else if (_type === 'area' && overlay) {
+  else if ((_type === 'area' || _type === 'highlight') && overlay) {
     let svg = overlay.parentNode.querySelector(config.annotationSvgQuery());
     let rect = svg.getBoundingClientRect();
     saveRect(_type, [{
